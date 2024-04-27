@@ -6,8 +6,10 @@ df = pd.read_csv('data/HistoricalData.csv')
 
 df['Average'] = df['High'].str.replace('$', '').astype(float) + df['Low'].str.replace('$', '').astype(float) / 2
 
-df['Date'] = df["Date"].apply(lambda x: datetime.strptime(x, "%m/%d/%Y").strftime("%d %B %Y")) 
+df['Date'] = pd.to_datetime(df['Date'], format="%m/%d/%Y")
+
 df_sorted = df.sort_values(by='Date', ascending=False)
+# df_sorted['newDate'] = df_sorted["Date"].apply(lambda x: x.strftime("%d %B %Y")) 
 print(df_sorted)
 
 fig, axs = plt.subplots(1, 1, figsize=(15, 5))
